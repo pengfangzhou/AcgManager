@@ -2,7 +2,10 @@
 
 from django.conf.urls import patterns, include, url
 from dbmodel.front.checkDrops import checkDrop
+from dbmodel.front.payQuery import payinfo
 from dbmodel.views import test
+from dbmodel.views import index
+from dbmodel.front.memberQuery import member
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -19,6 +22,8 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     ('^checkdrop/$',checkDrop),
+    ('^payinfo/$',payinfo),
     ('^test/$',test),
-
+    ('^$',index),
+    ('^member/$',member),
 )

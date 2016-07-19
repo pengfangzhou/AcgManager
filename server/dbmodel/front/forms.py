@@ -2,16 +2,24 @@
 from django import forms
 
 ZONE_CHOICES = (
-    ('local','本地'),
-    ('s001','1区'),
-    ('s002','2区'),
-    ('s003','3区'),
-    ('all','所有'),
+    ('all','所有区'),
+    ('s003','帝国三区'),
+    ('s002','帝国二区'),
+    ('s001','帝国一区'),
+)
+ZONE_SINGLE = (
+    ('s003','帝国三区'),
+    ('s002','帝国二区'),
+    ('s001','帝国一区'),
 )
 CHECK_TABLES = (
     ('match','战役'),
     ('soulproba','抽奖'),
     ('reward','普通抽奖'),
+)
+SHOW_METHODS = (
+    ('detail','详单'),
+    ('detailchannel','详单+渠道+ip'),
 )
 
 class CheckForm(forms.Form):
@@ -23,3 +31,26 @@ class CheckForm(forms.Form):
     # )
     zone = forms.ChoiceField(choices=ZONE_CHOICES,label='选择分区')
     checkTable = forms.ChoiceField(choices=CHECK_TABLES,label='选择表单')
+
+class PayQueryForm(forms.Form):
+    startYear = forms.IntegerField(label="开始年(*如2016)")
+    startMonth = forms.IntegerField(label="开始月(*如6)")
+    startDay = forms.IntegerField(label="开始日(*如27)")
+    endYear = forms.IntegerField(label="结束年(*如2016)")
+    endMonth = forms.IntegerField(label="结束月(*如6)")
+    endDay = forms.IntegerField(label="结束日(*如30)")
+    zone = forms.ChoiceField(choices=ZONE_CHOICES,label='选择分区')
+    # showmethod = forms.ChoiceField(choices=SHOW_METHODS,label='表现形式')
+    code = forms.CharField(label="查询码",max_length=100)
+
+class MemberForm(forms.Form):
+    zone = forms.ChoiceField(choices=ZONE_SINGLE,label='选择分区')
+    userid = forms.IntegerField(label="用户id")
+
+
+
+
+
+
+
+

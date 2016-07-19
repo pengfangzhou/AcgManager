@@ -9,6 +9,7 @@ class ZoneUrl(models.Model):
     short = models.CharField(max_length=50)
     ip = models.CharField(max_length=50)
     dbname = models.CharField(max_length=50)
+    gip = models.CharField(max_length=50)
     def __unicode__(self):
         return self.name
 
