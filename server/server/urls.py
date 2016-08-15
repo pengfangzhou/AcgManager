@@ -5,7 +5,9 @@ from dbmodel.front.checkDrops import checkDrop
 from dbmodel.front.payQuery import payinfo
 from dbmodel.views import test
 from dbmodel.views import index
+from dbmodel.views import info
 from dbmodel.front.memberQuery import member
+from dbmodel.front.sqlrun import sqlQuery
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -26,4 +28,6 @@ urlpatterns = patterns('',
     ('^test/$',test),
     ('^$',index),
     ('^member/$',member),
+    ('^sqlquery/$',sqlQuery),
+    ('^info/$',info),
 )

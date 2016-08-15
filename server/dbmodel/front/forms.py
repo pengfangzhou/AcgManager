@@ -21,6 +21,10 @@ SHOW_METHODS = (
     ('detail','详单'),
     ('detailchannel','详单+渠道+ip'),
 )
+SQL_METHODS = (
+    ('query','查询'),
+    ('execute','执行'),
+)
 
 class CheckForm(forms.Form):
     # a = forms.IntegerField()
@@ -47,6 +51,11 @@ class MemberForm(forms.Form):
     zone = forms.ChoiceField(choices=ZONE_SINGLE,label='选择分区')
     userid = forms.IntegerField(label="用户id")
 
+class SqlForm(forms.Form):
+    sqls = forms.CharField(max_length=90000,widget=forms.Textarea,label='sqls')
+    zone = forms.ChoiceField(choices=ZONE_CHOICES,label='选择分区')
+    code = forms.CharField(max_length=200,label='号码')
+    sqlmethod = forms.ChoiceField(choices=SQL_METHODS,label='执行方式')
 
 
 
