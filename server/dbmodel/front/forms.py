@@ -3,17 +3,23 @@ from django import forms
 
 ZONE_CHOICES = (
     ('all','所有分区'),
+    ('s007','帝国六区'),
+    ('s006','帝国五区'),
     ('s004','帝国三区'),
     ('s003','帝国二区'),
     ('s002','帝国一区'),
     ('s001','不删档区'),
+    ('s000','本地'),
 )
 ZONE_SINGLE = (
     ('all','所有分区'),
+    ('s007','帝国六区'),
+    ('s006','帝国五区'),
     ('s004','帝国三区'),
     ('s003','帝国二区'),
     ('s002','帝国一区'),
     ('s001','不删档区'),
+    ('s000','本地'),
 )
 CHECK_TABLES = (
     ('match','战役'),
@@ -28,6 +34,9 @@ SQL_METHODS = (
     ('query','查询'),
     ('execute','执行'),
 )
+
+class NormalForm(forms.Form):
+    zone = forms.ChoiceField(choices=ZONE_CHOICES,label='选择分区')
 
 class CheckForm(forms.Form):
     # a = forms.IntegerField()
@@ -54,11 +63,23 @@ class MemberForm(forms.Form):
     zone = forms.ChoiceField(choices=ZONE_SINGLE,label='选择分区')
     userid = forms.IntegerField(label="用户id")
 
+class UserInfoForm(forms.Form):
+    startYear = forms.IntegerField(label="开始年(*如2016)")
+    startMonth = forms.IntegerField(label="开始月(*如6)")
+    startDay = forms.IntegerField(label="开始日(*如27)")
+    endYear = forms.IntegerField(label="结束年(*如2016)")
+    endMonth = forms.IntegerField(label="结束月(*如6)")
+    endDay = forms.IntegerField(label="结束日(*如30)")
+    zone = forms.ChoiceField(choices=ZONE_CHOICES,label='选择分区')
+    # showmethod = forms.ChoiceField(choices=SHOW_METHODS,label='表现形式')
+    code = forms.CharField(label="查询码",max_length=100)
+
 class SqlForm(forms.Form):
     sqls = forms.CharField(max_length=90000,widget=forms.Textarea,label='sqls')
     zone = forms.ChoiceField(choices=ZONE_CHOICES,label='选择分区')
     code = forms.CharField(max_length=200,label='号码')
     sqlmethod = forms.ChoiceField(choices=SQL_METHODS,label='执行方式')
+
 
 
 
