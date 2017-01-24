@@ -4,6 +4,7 @@ from django.shortcuts import render
 from dbmodel.models import ZoneUrl
 from dbmodel.front.dao import sqlDao
 
+
 def sqlQuery(request):
     print "sqlQuery()"
     error = ""
@@ -15,7 +16,22 @@ def sqlQuery(request):
             code = form.cleaned_data['code']
             sqlmethod = form.cleaned_data['sqlmethod']
             sql = sql.strip()
+
+            pp = u''
+            #处理换行问题
+            for tt in sql.splitlines():
+                tt=tt.rstrip()+'\n'
+                pp=pp+tt
+
+            sql = pp
+
+            # sql = sql.decode('utf-8')
+            # sql = sql.encode('utf-8')
+
+            # formatter = "%r"
+
             print "zone:",zone
+            # print formatter % (sql)
             print "sql:",sql
             print "code:",code
             print "sqlmethod:",sqlmethod
