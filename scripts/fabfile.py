@@ -10,19 +10,24 @@ env.password = 'Asd868**123qwe'
 # env.hosts = ['zhoupengfang@127.0.0.1',]
 # env.password = ''
 
-allZones = [0,1,2,3,5,6]
-newZones = [7,8,9,10,11]
+allZones = [0,1,2,3,5,6,7,8,9,10,11,12,13,14,15,16]
+newZones = [12,13,14,15,16]
 
 
 #执行新区
 def donews():
     print "donews()"
+    # newZones = [12]
     currZones = newZones
 
+    # gitClone(currZones)
+
     # replaceNewConfig(currZones)
+    # gitCommitAndPull(currZones)
+
     # createDjangoDB(currZones)
 
-    jsonFile = "../../core_170118.json"
+    jsonFile = "../../core_170207.json"
     loadJsonData(currZones,jsonFile)
 
 #执行任务
@@ -30,7 +35,7 @@ def dotask():
     print "dotask()"
     currZones = allZones
 
-    # gitCommitAndPull(currZones)
+    gitCommitAndPull(currZones)
 
 #导入初始数据
 def loadJsonData(zones,jsonFile):
@@ -73,15 +78,33 @@ def replaceNewConfig(zones):
             commondSettingUrlName = "sed -i 's/s003/s00"+str(rzone)+"/g' "+prodir+"local_settings.py"
             run(commondSettingUrlName)
 
-            commondSettingPortName = "sed -i 's/8883/88"+str(rzone)+"/g' "+prodir+"local_settings.py"
-            run(commondSettingPortName)
-
             commondSettingDBIDName = "sed -i 's/DATA_DBID = 3/DATA_DBID = "+str(rzone)+"/g' "+prodir+"local_settings.py"
             run(commondSettingDBIDName)
 
             commondSettingZONEIDName = "sed -i 's/ZONE_ID = 3/ZONE_ID = "+str(rzone)+"/g' "+prodir+"local_settings.py"
             run(commondSettingZONEIDName)
 
+            newZonePort = '80'
+            if rzone < 10:
+                newZonePort = '8'+str(rzone)
+            else:
+                newZonePort = str(rzone)
+            commondSettingPortName = "sed -i 's/8883/88"+str(newZonePort)+"/g' "+prodir+"local_settings.py"
+            run(commondSettingPortName)
+
+            #替换cron
+            commandCron = "sed -i 's/127.0.0.1:8880/127.0.0.1:88"+str(newZonePort)+"/g' "+prodir+"script/cronrun.py"
+            run(commandCron)
+
+#git clone
+def gitClone(zones):
+    for zone in zones:
+        ser = u'AcgServerS00'+str(zone+1)
+        print "开始处理: ",ser
+        with cd('/root/srv/PtAcg/'):
+            commandClone = 'git clone ssh://git@d.putaogame.com:21022/AcgServer.git '+ser
+            print commandClone
+            run(commandClone)
 
 #git commit并pull
 def gitCommitAndPull(zones):
