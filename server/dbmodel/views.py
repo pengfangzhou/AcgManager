@@ -17,7 +17,7 @@ def update(request):
     ret = dict(code=0, timestamp=int(time.time()))
     # reb = zlib.compress(escape.json_encode(ret))
     # self.write(ret)
-    return HttpResponse("{\"code\": -1,\"timestamp\": 1492585823}")
+    return HttpResponse("{\"code\": 0,\"timestamp\": 1492585823}")
 
 def index(request):
     return render(request,'index.html',{})
