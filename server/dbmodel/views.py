@@ -4,11 +4,20 @@ from dbmodel.models import ZoneUrl
 from dbmodel.front.dao import sqlDao
 from dbmodel.front.dao import UserDao
 from dbmodel.front import ProdsUtils
+import zlib
+from cyclone import escape, web
+import time
 
 # Create your views here.
 def test(request):
     print "test()"
     return HttpResponse("Hello world!")
+
+def update(request):
+    ret = dict(code=0, timestamp=int(time.time()))
+    # reb = zlib.compress(escape.json_encode(ret))
+    # self.write(ret)
+    return HttpResponse("{\"code\": -1,\"timestamp\": 1492585823}")
 
 def index(request):
     return render(request,'index.html',{})

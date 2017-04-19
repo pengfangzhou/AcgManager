@@ -4,6 +4,7 @@ from django.conf.urls import patterns, include, url
 from dbmodel.front.checkDrops import checkDrop
 from dbmodel.front.payQuery import payinfo
 from dbmodel.views import test
+from dbmodel.views import update
 from dbmodel.views import index
 from dbmodel.views import info
 from dbmodel.front.memberQuery import member
@@ -29,6 +30,7 @@ urlpatterns = patterns('',
     # ('^checkdrop/$',checkDrop),
     ('^payinfo/$',payinfo),
     ('^test/$',test),
+    ('^update/$',update),
     ('^$',index),
     ('^member/$',member),
     ('^sqlquery/$',sqlQuery),
